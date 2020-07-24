@@ -181,15 +181,16 @@ M\'{y}vatn; time-series analysis; tundra arthropods
 % Acknowledgments
 % ---------------------------------------------------------------------------------------
 % ---------------------------------------------------------------------------------------
-% You may wish to remove the Acknowledgments section while your paper
-% is under review (unless you wish to waive your anonymity under
-% double-blind review) if the Acknowledgments reveal your identity.
-% If you remove this section, you will need to add it back in to your
-% final files after acceptance.
 
-% \section*{Acknowledgments}
-%
-% OEC would like to thank the world. GHC is much indebted to the solar system. AQE was supported by a generous grant from the Milky Way (MW/01010/987654).
+\section*{Acknowledgments}
+
+Collection of long-term data was supported by National Science Foundation grants
+DEB-0717148 to Claudio Gratton, DEB-1052160, DEB-1556208 to Anthony R. Ives,
+and Graduate Research Fellowships DGE-1256259 and DGE-XXXXXX.
+The M\'{y}vatn Research Station directed by \'{A}rni Einarsson
+provided logistical and scientific support.
+We thank Amanda McCormick, Matthew McCary, and XXXXXXXXXXXXXXXXXXXXXXXXXXX 
+for feedback on this manuscript.
 
 
 % ---------------------------------------------------------------------------------------
@@ -222,19 +223,21 @@ M\'{y}vatn; time-series analysis; tundra arthropods
 \begin{table}
 \caption{\label{tab:model-summary}
 Model inference.
-LOO deviance was calculated from the posterior distribution of log-likelihoods
+$\Delta$LOOIC was calculated from the posterior distribution of point-wise log-likelihoods
 and compares the fit of the full model to a reduced model excluding either
 deviations in taxon-specific responses from the mean response or
 the overall response (including mean and taxon-specific components).
-The scale of LOO deviance is comparable to $\Delta$AIC.
-The variance partitioning was calculated using ANOVA,
-with the sum-of-squares for each component scaled by the total sum-of-squares.
-Parenthetical values show relative loadings for the PC axes.
-The `Total' column is calculated as the sum across PC axes for each row,
-with each axis weighted by the contribution of each predictor when relevant.}
+The scale of $\Delta$LOOIC is comparable to $\Delta$AIC.
+The variance partitioning (non-parenthetical values) was calculated using ANOVA,
+with the sum-of-squares for each component divided by the total sum-of-squares 
+to obtain the proportional contribution.
+Parenthetical values show relative loadings for the observed data projection onto the PC axes.
+The `Total' column gives either the sum of these loadings across the PC axes (top row) or 
+the sum of the loadings weighted by the corresponding variance contributions for a given predictor
+(bottom three rows).}
 \begin{tabular}{rrrrrrrr}
 \toprule
- & \multicolumn{2}{c}{LOO deviance} & & \multicolumn{4}{c}{Variance partitioning} \\
+ & \multicolumn{2}{c}{$\Delta$LOOIC} & & \multicolumn{4}{c}{Variance partitioning} \\
  \cmidrule{2-3} \cmidrule{5-8}
  & \multicolumn{1}{c}{Taxon-variation} & \multicolumn{1}{c}{Overall} & &
     \multicolumn{1}{c}{PC1} & \multicolumn{1}{c}{PC2} & \multicolumn{1}{c}{PC3} &
@@ -243,9 +246,9 @@ with each axis weighted by the contribution of each predictor when relevant.}
     \multicolumn{1}{c}{(0.34)} & \multicolumn{1}{c}{(0.17)} &
     \multicolumn{1}{c}{(0.17)} & \multicolumn{1}{c}{(0.68)} \\
 \midrule
-time & 37 & 34 &  & 0.00 & 0.28 & 0.84 & (0.19)\\
-distance & 64 & 64 &  & 0.99 & 0.04 & 0.01 & (0.34)\\
-midges & 4 & 15 &  & 0.01 & 0.67 & 0.15 & (0.14)\\
+time & 36 & 34 &  & 0.00 & 0.27 & 0.85 & (0.19) \\
+distance & 65 & 64 &  & 0.99 & 0.04 & 0.01 & (0.34) \\
+midges & 5 & 16 &  & 0.01 & 0.69 & 0.14 & (0.14)\\
 \bottomrule
 \end{tabular}
 \end{table}
