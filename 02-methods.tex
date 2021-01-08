@@ -1,18 +1,19 @@
 \section*{Methods}
 
-Lake M\'{y}vatn has a tundra-subarctic climate, with a surrounding landscape
+M\'{y}vatn has a tundra-subarctic climate, and the surrounding landscape is
 dominated by heathland and grassland vegetation \citep{Einarsson2004}.
-Arthropod samples were collected every 15$\pm$4d from five sites around the
-shoreline of M\'{y}vatn from May to August in 2008 through 2019.
+Arthropod samples were collected approximately every 15d from five sites around the
+shoreline of the lake from May--August in 2008--2019.
 Each site included 3--4 plots at various distances
-(5m, 50m, 150m, and 500m) along a transect perpendicular to the lakeshore.
-Midge deposition was estimated at each site using aerial infall traps \citep{Dreyer2015},
+(5m, 50m, 150m, and 500m) along a transect perpendicular to the lakeshore
+(some transects only extended to 150m).
+Midge deposition was sampled at each site using aerial infall traps \citep{Dreyer2015},
 and activity-density of ground-dwelling arthropods was sampled using pitfall traps
 \citep{Southwood2009}.
 Activity-density is a measurement of relative abundance, which represents a combination
 of both population size and behavioral phenomena, both of which potentially respond
 to the allochthonous inputs of resources \citep{Ostfeld2000}.
-For this analysis, we used the cumulative annual catch of predatory and
+For this analysis, we used the cumulative May--August catch of predatory and
 detritivorous arthropods (Figure \ref{fig:obs-data}),
 including ground beetles (Carabidae), rove beetles (Staphylinidae),
 harvestmen (Opiliones), ground spiders (Gnaphosidae),
@@ -20,121 +21,124 @@ sheet-weaving spiders (Linyphiidae), and wolf spiders (Lycosidae).
 
 
 
-We analyzed taxon-level variation across sites and years using an extension of
+We analyzed taxon-level variation using an extension of
 linear mixed models.
-Our model included (1) fixed effects for predictor variables (number of years since initial
-sampling year, distance from the lake, and midges);
-(2) random intercepts grouped by taxon, site, and plot; and
-(3) random slopes for the predictor variables grouped by taxon
-(see appendix for full mathematical description).
+Our model included (1) fixed effects for continuous predictor variables 
+(number of years since initial sampling year, distance from the lake, and midge deposition);
+(2) random intercepts grouped by taxon, taxon $\times$ site, and taxon $\times$ plot; and
+(3) random slopes for the three predictor variables grouped by taxon.
 The fixed effects give the average response across taxa to the predictor variables,
 while the corresponding random effects give the deviation for each taxon from this
 average response \citep{Jackson2012}.
-The overall response of a given taxon is the sum of the corresponding fixed and
-random components.
+The overall response of a given taxon is the sum of the fixed and random components.
 Quantifying responses for each taxon in a single model 
 allows for "shrinkage" or “partial pooling” of the taxon-specific responses towards the mean response,
 which reduces the noisiness of individual estimates and ameliorates concerns of multiple
 comparisons \citep{Gelman2012} that have been raised for the examination of
 responses for many taxa separately \citep{Mcgarigal2013}.
-We log-transformed cumulative midges catch and distance and then z-scored (subtracted the mean 
-and divided by the standard deviation) all predictors
-(excluding the intercept).
+We log-transformed midge deposition and distance 
+before z-scoring all of the predictors
+by either subtracting the mean (midges, distance) or the minimum (time)
+and then dividing by the standard deviation.
+For time we subtracted the minimum so that the intercepts 
+quantified the initial abundance of each taxon in each plot.
 
 
 
-To formulate the autoregressive component of the mixed model, we defined a vector $\mathbf{y}$
+To formulate the autoregressive component of the model, we defined a vector $\mathbf{y}$
 consisting of transformed counts for each taxon in each plot through time.
 Because population processes are generally multiplicative, we log-transformed the counts,
-adding one to all values to accommodate zeros.
-We then z-scored the
-transformed counts within each taxon to give the responses of different taxa on
-comparable scales \citep{Jackson2012}.
+adding one to all values to accommodate the modest number of zeros.
+We then z-scored all values to improve interpretability of the model coefficients.
 The rows of $\mathbf{y}$ were grouped as individual time series
 (i.e., taxon--plot combinations), with observations within each group ordered by time.
-From this vector, we constructed a lagged vector $\mathbf{y\sp{\prime}}$,
-where the first element for each time series was zero followed by the first through
-penultimate observations for that time series \citep{Ives2006}.
-This allowed us to specify an autoregressive model for the $i$th observation of
-$\mathbf{y}$ as
+For each time series, we then specified an autoregressive state-space model 
+for the $i$th observation of $\mathbf{y}$ as
 %
 \begin{equation} \label{eq:y-i}
 \begin{split}
-    y_i &= \mathbf{x}_i^\text{T} {\boldsymbol\beta}_i +
+    z_i &= \mathbf{x}_i^\text{T} {\boldsymbol\beta}_i +
         \left( \phi_{\text{taxon}[i]} \right)^{\text{time}_i - \text{time}\sp{\prime}_i}
-        y\sp{\prime}_i + \varepsilon_i \\
-    \varepsilon_i &\sim \mathcal{N} \left(0, \; \sigma_{\text{residual}} \right)
+        z\sp{\prime}_i + \varepsilon_i \\
+    y_i &\sim \mathcal{N} \left(z_i, \; \sigma_{\text{obs}} \right)
     \text{,}
 \end{split}
 \end{equation}
 %
-\noindent where $\mathbf{x}_i^\text{T}$ is the transposed vector
+\noindent where $z_i$ and $z\sp{\prime}_i$ are latent and lagged-latent abundances on the transformed scale,
+$\mathbf{x}_i^\text{T}$ is the transposed vector
 of predictor values for the $i$th observation,
 ${\boldsymbol\beta}_i$ is a vector of coefficients 
-modeled hierarchically according to the random effects structure described above,
+modeled hierarchically according to the fixed and random effects structure described above,
 $\phi_{\text{taxon}[i]}$ is the taxon-specific autoregressive (AR) parameter,
 $\text{time}_i$ is the current time (in years),
-$\text{time}\sp{\prime}_i$ is the lagged time (defined as for  $y\sp{\prime}$),
-and $\varepsilon_i$  is the Gaussian residual
-error with standard deviation $\sigma_{\text{residual}}$.
+$\text{time}\sp{\prime}_i$ is the lagged time,
+$\varepsilon_i$  is the Gaussian process error 
+with standard deviation $\sigma_{\text{proc}}$,
+and $\sigma_{\text{obs}}$ is the observation error standard deviation.
 Because $y_i$ consists of log-transformed abundances, equation \ref{eq:y-i} is
-essentially a log-linear model of population dynamics, with growth rate
-$\mathbf{x}_i^\text{T} {\boldsymbol\beta}_i$ and
-density-dependence $\phi_{\text{taxon}[i]}$
-where values closer to zero indicate stronger regulation \citep{Ives2010, Ziebarth2010}.
+essentially a log-linear model of population dynamics, with the population growth rate given by
+$\mathbf{x}_i^\text{T} {\boldsymbol\beta}_i$.
+When $\phi_{\text{taxon}[i]} = 0$,
+the dynamics are determined primarily by $\mathbf{x}_i^\text{T} {\boldsymbol\beta}_i$,
+indicating strong population regulation associated with contemporary environmental conditions \citep{Ives2010, Ziebarth2010}.
+In contrast, $\phi_{\text{taxon}[i]}$ near 1 implies weak regulation as there is strong 
+``memory'' of previous population states (i.e. high temporal autocorrelation).
 Exponentiating the elapsed time with base $\phi_{\text{taxon}[i]}$ allows the model
 to accommodate unequal time steps \citep{Zuur2009}.
+The autoregressive term in equation (\ref{eq:y-i}) was dropped for the initial value of each time series,
+such that the initial value was given entirely by predictor variables and associated coefficients.
 The primary difference between the present approach and more traditional linear models
-with AR structures \citep[e.g.][]{Zuur2009} is the estimation of separate values of the AR
-parameter for different groups (i.e. taxa).
-This is an important extension, as it allows different members of a community with
-different levels of temporal autocorrelation (caused by differences in the underlying
-dynamics) to be included in a single model.
-We parameterized the model with the predictors giving the change in $y_i$,
-rather than the mean of the stationary distribution as is often done
-for autoregressive models \citep{Harvey1990, Ives2006},
-because this reduced the correlation between the estimates of temporal trends and AR parameters.
+with AR structures \citep[e.g.,][]{Zuur2009} is the estimation of separate values of the AR
+parameter for different groups (i.e., taxa).
+This is an important extension, as it allows members of a community with
+different levels of temporal autocorrelation to be included in a single model.
 
 
 
 Community analyses often utilize dimension reduction to characterize 
 variation in community composition \citep{Mcgarigal2013}.
-However, with our approach it is possible to infer variation in community composition 
+However, with autoregressive mixed models it is possible to infer variation in community composition 
 directly from the variation in taxon-specific responses.
-We illustrate this in two ways.
-First, we compared the full model to a series of simplified models that either
-(1) excluded the taxon-specific deviations from the mean
-response (i.e. random effects) or (2) excluded the overall response across the
-full community (i.e. fixed and random effects).
-The former provided inference for variation in community composition per se,
-while the latter provided inference for variation in both composition and overall abundance.
-We made these comparisons using the Leave-one-out information criterion (LOOIC) \citep{Vehtari2017},
-which is a Bayesian analogue to the Akaike information criterion (AIC) 
-and can be similarly interpreted in units of deviance.
+We illustrated this in two ways.
+First, we examined the posterior distributions of the fixed and random effects 
+associated with the time, distance, and midge deposition. 
+Fixed effects characterize the mean responses among taxa, 
+and substantial overlap with zero would indicate the absence of a consistent community-wide 
+response to a given predictor.
+Random effects characterize variation in the responses among taxa,
+which is the basis for changes in composition per se. 
+While random effect standard deviations cannot overlap zero,
+concentration of posterior density near the zero-boundary 
+would imply limited variation in community composition in response to a given predictor.
 Second, we used principal components analysis on fitted values from the model
 to generate orthogonal axes
 characterizing the expected variation in the community due to the predictors
 \citep[similar to][]{Jackson2012},
 and we used ANOVA to partition variation in the fitted values 
 into contributions from midges, time, and distance. 
-We then projected the observed data onto these PC axes.
+We then projected the observed data onto the PC axes.
 The total contribution of each predictor to the observed community variation
 was calculated as the sum of the axis loadings weighted by 
 the corresponding variance contributions.
-These two approaches provided formal inference and visualization of community composition analogous 
-to conventional ordination while appropriately accounting 
-for temporal autocorrelation and maintaining an explicit link to taxon-specific responses. 
+These two approaches provided statistical inference and visualization 
+of community abundance and composition analogous to conventional ordination 
+while appropriately accounting for temporal autocorrelation 
+and maintaining an explicit link to taxon-specific responses. 
 
 
 
-We fit the models with a Bayesian approach using Stan \citep{Carpenter2017},
-via the \texttt{rstan} \citep{Stan2018} package in R.
-We used 6 chains with 4000 iterations each (including 2000 iterations of "warm-up")
-and assessed convergence based on effective sample size of the Markov chain, number of divergent
+We fit the model with a Bayesian approach using Stan,
+via the \texttt{rstan} \citep{Stan2018} package in R 4.0.3 \citep{R2020}.
+We used 4 chains with 4000 iterations each (including 2000 iterations of "warm-up")
+and assessed convergence based on effective sample size across the Markov chains, number of divergent
 transitions, and potential scale reduction factor.
 We used Gaussian priors with mean 0 and standard deviation 1 for the fixed effects,
 Gamma priors with shape 1.5 and rate 3 for the standard deviations,
-and Gaussian priors with mean 0 and standard deviation 0.5 for the AR parameter.
+and a Gaussian prior with mean 0 and standard deviation 0.5 for the AR parameters.
 The latter was truncated with a lower bound of zero to avoid quasi-cyclic dynamics,
 but did not have an explicit upper bound. 
-Nonetheless, the estimated values of the AR parameters were less than one, indicating stationarity. 
+We used posterior medians as point estimates and 68\% quantiles as bounds of uncertainty intervals,
+matching the coverage of standard errors (hereafter ``posterior standard errors'').
+Data and code can be found at \url{https://github.com/lucasnell/trans\_trends}
+and \url{https://github.com/lucasnell/trans\_trends\_pkg}.

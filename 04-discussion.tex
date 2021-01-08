@@ -2,62 +2,64 @@
 \section*{Discussion}
 
 Here, we show how linear mixed models with temporal autocorrelation can be used to quantify
-community responses to environmental variation from replicated time series observations. 
-Our approach extends the previous use of mixed models for estimating taxon- and community-level
-responses to environmental variation \citep{Bartrons2015, Jackson2012} by
+community responses to environmental variation from replicated time series. 
+The approach extends the previous use of mixed models for estimating taxon- and community-level
+responses to environmental variation \citep{Jackson2012, Bartrons2015} by
 incorporating temporal autocorrelation with group-specific values for the autoregressive parameter. 
 While our model formulation accounted for space using linear trends (due to the nature of the example data),
 the method could be extended to explicitly include spatial autocorrelation when appropriate
 \citep[similar to][]{Bartrons2015}.
 The approach of modeling community responses at the taxon level
 provides a natural way to accommodate the temporal autocorrelation
-structure of community times series data,
-because community dynamics are manifestations of the dynamics of constituent populations 
-(regardless of whether those populations interact).
+structure of community times-series data,
+because community dynamics are manifestations of the dynamics of constituent populations.
 Furthermore, the taxon-specific autoregressive parameter
-estimated by our approach has a clear population-dynamic interpretation as the rate at which the
-population returns to its central tendency, which is closely tied to classical ecological
+estimated by our approach has a clear population-dynamic interpretation as the
+strength with which the population is drawn towards its central tendency, 
+which is closely tied to classical ecological
 concepts of population regulation \citep{Nicholson1933, Ziebarth2010}. 
 In our application to the M\'{y}vatn arthropod community,
-we found substantial variation in the AR parameter across taxa.
-This suggests that they either experience different dynamics or that those dynamics play out at different time scales.
+the AR parameters for all taxa were well below 1,
+indicating that the populations were statistically stationary through time 
+after accounting for linear time trends and responses to midge deposition.
+Taxa also varied substantially in their AR parameters,
+with the dynamics of ground spiders appearing to be more tightly constrained than for the other taxa.
 However, caution is warranted when drawing such inferences from short time series
 and when not explicitly accounting for interspecific interactions.
 
 
 
 While our approach is formulated in terms of taxon-specific responses,
-we illustrate two methods for how these can be extended to inferences about community composition.
-The first entailed comparing the full model to reduced models that eliminated different aspects of 
-taxon-level responses to the predictors.
-The comparison of the full model to the reduced model omitting variation among taxon responses provided a statistical
-assessment of whether composition per se varied across the predictors.
-Comparison to the model omitting response to the predictors altogether provided an assessment of the overall community response.
-The second approach applied principal components analysis to the fitted values from the model \citep[similar to][]{Jackson2012}, 
-which allowed variation in community composition to be quantified in a manner analogous to traditional ordination
+we illustrate two methods for how these can be extended to draw inferences about community composition.
+First, the model provides estimates of both the mean response (fixed effects) 
+and the variation in responses (random effects) among taxa.
+When posterior distributions for the means or standard deviations are concentrated away from zero,
+this indicates substantial variation in community-wide abundance and composition per se, respectively. 
+Second, principal components analysis can be applied to the fitted values from the model \citep[similar to][]{Jackson2012}, 
+which allows variation in community composition to be quantified in a manner analogous to traditional ordination
 while appropriately accounting for temporal autocorrelation. 
-We then partitioned the variance in the principal components analyses into contributions from the predictor variables.
+The variance in the principal components analyses can then be partitioned into contributions from the predictor variables.
 This exemplifies the general dictum that it is better to `analyze, then aggregate' than it
 is to `analyze the aggregate' \citep{Clark2011}.
 In our example application to the M\'{y}vatn data,
-we found that most of the community variation was due to changes in composition per se
-resulting from heterogeneous taxon-specific responses to distance from the lake and across years.
+most of the community variation was due to changes in composition per se
+resulting from heterogeneous taxon-specific responses to distance from the lake and across time.
 However, most taxa were positively associated with midge deposition,
-resulting in elevated community abundance overall.
+resulting in elevated abundance across the entire predatory arthropod community.
 
 
 
 This study fits into a larger effort to understand the role 
-of allochthonous inputs on recipient communities \citep{Polis1997}.
+of allochthonous inputs on recipient communities \citep{Polis1997, Mccary2020}.
 One of the challenges in identifying the effects of allochthonous pulses 
-from long-term observational data is that they are likely to be conflated
-with other factors due to the manner in which they vary through space and time \citep{Yang2008}.
+from long-term observational data is that pulses are likely to be conflated
+with other factors that vary through space and time \citep{Yang2008}.
 By using linear mixed effects models with group-specific temporal autocorrelation, 
-we were able to partition the influence of three interrelated drivers of community composition 
-to quantify the effect allochthonous resources had on a community.
-We found a positive overall response of predator abundance to midge deposition, which
-is consistent with previous studies at M\'{y}vatn \citep{Dreyer2012, Hoekman2011, Sanchez2018}
-and in other systems \citep{Murphy2012, Ostfeld2000}.
+we were able to partition the influence of three interrelated variables (time, distance, and midge deposition) 
+to quantify the effect of allochthonous resources on a tundra arthropod community.
+We found a positive overall response of predator and detritivore abundance to midge deposition, which
+is consistent with previous studies at M\'{y}vatn \citep{Hoekman2011, Dreyer2012, Sanchez2018}
+and in other systems \citep{Ostfeld2000, Murphy2012}.
 Given the ubiquity of spatiotemporal associations between different drivers of ecological communities, 
 our approach has potential utility across many subdisciplines of community ecology.
 

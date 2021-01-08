@@ -1,62 +1,66 @@
 \section*{Introduction}
 
-A central goal of ecology is to understand how environmental variability affects
+A central goal of ecology is to understand how environmental variation affects
 population and community dynamics.
-Time series data of ecological communities are increasingly available from monitoring programs such as the
+To this end, 
+time-series data of ecological communities are increasingly available from monitoring programs such as the
 National Ecological Observatory Network \citep{Keller2008} and
-long-term field experiments \citep[e.g.][]{Fraser2013, Cowles2018, Shi2015}.
-Data of this sort provide great promise for answering long-standing questions about
+long-term field experiments \citep[e.g.,][]{Fraser2013, Cowles2018}.
+Data of this sort provide great promise for answering long-standing questions of
 how environmental factors drive community dynamics.
-The response of ecological communities to environmental predictors is often analyzed
-using ordination methods (e.g., NMDS; RDA), which map variation in abundance or
+The responses of ecological communities to environmental predictors are often analyzed
+using ordination methods (e.g., NMDS, RDA), which map variation in abundance or
 occurrence onto orthogonal axes that provide synoptic assessments of community
 variation \citep{Mcgarigal2013}.
-However, these methods are generally inappropriate for time-series data, as they
-do not account for temporal autocorrelation in the abundance of members of the
-community \citep{Ives2006}.
-One approach to this problem is dimension reduction 
-that produces community metrics for univariate time-series analyses \citep{Simpson2009}.
-This approach unfortunately sacrifices valuable inferences about taxon-specific responses 
+However, when applied to community time series these approaches do not account for temporal
+autocorrelation in the abundances of the populations that compose the community.
+This is an important limitation, as failing to account for temporal autocorrelation
+can lead to erroneous statistical inferences \citep{Ives2006}.
+Furthermore, populations may vary in their degree of temporal autocorrelation,
+due to differences in life histories or strengths of population regulation \citep{Ziebarth2010},
+potentially exacerbating the challenges for statistical inference.
+One approach to this problem is to use dimension reduction 
+to produce composite community metrics for more traditional univariate time-series analyses \citep{Simpson2009}.
+Unfortunately, this approach sacrifices valuable inferences about taxon-specific responses 
 to environmental predictors.
-Alternative approaches are designed to explicitly quantify interspecific interactions
-but require relatively complex models and long time series \citep{Ives1999, Hampton2013}.
+Alternative approaches are designed to explicitly quantify dynamic interspecific interactions
+but require relatively complex models and long time series \citep{Ives2003, Hampton2013}.
 In contrast, community time series are often relatively short but contain
 replication through space or across experimental units with the goal of
 inferring the responses of communities to external drivers or experimental manipulations.
 
 Here, we show how autoregressive mixed models (linear mixed models with temporal
-autocorrelation structures) can be used to infer taxon- and community-level responses
+autocorrelation structures) that account for observation error
+can be used to infer taxon- and community-level responses
 to predictor variables from replicated time series data.
 The approach is based on the method of \cite{Jackson2012}, who model variation in
 taxon-specific responses to predictors as random effects.
-These random effects can in turn be used for statistical inferences on community composition 
-(which derives from variation among taxa),
+These random effects can in turn be used for statistical inferences on community composition,
+which fundamentally derives from variation among taxa,
 making explicit the link between the two organizational scales.
-We extend this approach for time series data by formulating models with separate
+We extend this approach for time series by formulating models with separate
 temporal autocorrelation structures for different taxonomic groups, accounting for
-the fact that different taxa are likely to be characterized by different dynamics
-(e.g. due to differences in life histories).
+the fact that different taxa are likely to be characterized by different dynamics.
 The degree of temporal autocorrelation itself provides information 
-about the community dynamics \citep{Ives1999},
+about the community dynamics \citep{Ives2003},
 and its inclusion allows for valid statistical inferences on the effects of predictors 
 when observations are temporally replicated \citep{Ives2006}.
 
 We illustrate the utility of this method by analyzing the responses of 
-arthropods to spatiotemporal variation in allochthonous resources at Lake Mývatn
-in northern Iceland \citep{Einarsson2004}.
-Mývatn has large emergences of midges (Chironomidae) that subsidize the terrestrial
-plant \citep{Gratton2008} and arthropod \citep{Dreyer2012, Sanchez2018} communities.
+terrestrial arthropods to spatiotemporal variation in allochthonous resources at Lake Mývatn, Iceland \citep{Einarsson2004}.
+Mývatn has large emergences of midges (Diptera: Chironomidae) that emerge from the lake as adults 
+and subsequently subsidize the terrestrial
+plant \citep{Gratton2008, Krowiak2017} and arthropod \citep{Dreyer2012, Sanchez2018} communities.
 The midges have large interannual fluctuations and decline
 in deposition with distance from the lakeshore \citep{Dreyer2015}.
 We apply autoregressive mixed models to assess the community response to the
 highly variable midge subsidy, 
 while simultaneously accounting for linear trends across time and distance from the lake.
-Both of these variables may also contribute to the dynamics of tundra arthropod populations,
-so including them helps distinguish the effects of midges from those
-of other variables that vary with distance (e.g. plant community composition) or 
-time (e.g. climate change) \citep{Bowden2018}.
+Including those two covariates was important for isolating the effects of midges from those
+of other variables that vary with distance (e.g., plant composition) or 
+time (e.g., climate) \citep{Bowden2018}.
 This study shows how autoregressive mixed models provide a statistically sound, 
 easy-to-interpret method for characterizing community responses to
-environmental variation through time and space.
+environmental variation in time and space.
 
 

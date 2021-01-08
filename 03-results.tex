@@ -1,67 +1,51 @@
 \section*{Results}
 
-The AR coefficients were generally similar across taxa and of modest magnitude,
-indicating moderate levels of temporal autocorrelation across years
-(Figure \ref{fig:coefs}B).
-Ground spiders were an exception,
-with an AR coefficient near zero indicating limited autocorrelation.
-The relatively low autocorrelation is apparent from the time series,
-where ground spiders appear more tightly constrained to their mean abundance
-than was the case for other taxa (Figure \ref{fig:obs-data}A),
-which results in less autocorrelated (i.e. ``faster'') fluctuations through time
-\citep{Ziebarth2010}. 
-While caution is warranted when interpreting dynamical features of short time series,
-this result implies that ground spiders were more tightly constrained to their mean abundance
-as determined by the environmental predictors, while the other taxa were only modestly constrained.
-However, none of the AR coefficients were close to 1, 
-implying that the populations were statistically stationary through time 
-once accounting for the predictors, including linear time trends.
+The AR coefficients were generally similar across taxa and all well below 1
+(Figure \ref{fig:coefs}a), 
+indicating that the populations were statistically stationary
+through time after accounting for the predictors (including the linear time trends).
+Ground spiders had the lowest AR coefficient; 
+this was visually apparent in the data,
+as ground spiders appeared more tightly constrained to their mean abundance
+than was the case for other taxa (Figure \ref{fig:obs-data}a).
+This implies that ground spiders may have experienced the strongest population regulation
+as determined by the environmental predictors,
+although caution is warranted when inferring dynamical features of short time series.
 
 
 
-The overall community response to midge deposition was positive,
-as indicated by both the coefficient estimates (Figure \ref{fig:coefs}A,C)
-and the improvement of the full model
-relative to the reduced model (Table \ref{tab:model-summary}: \emph{LOOIC}).
-The response to midges was somewhat variable across taxa,
-as judged by the taxon-specific coefficients (Figure \ref{fig:coefs}A)
-and the posterior distribution
-for the random effect standard deviation (Figure \ref{fig:coefs}D).
-Specifically, ground spiders had the most positive response,
-while sheet weavers had the weakest (largely neutral) response.  
-However, this variation among taxa made a relatively small contribution
-to the model fit (Table \ref{tab:model-summary}: \emph{LOOIC}).
-In contrast to the response to midges, there was large variation among taxa in
-linear trends through time and distance from the lake (Figure \ref{fig:coefs}A,D);
-this taxon-specific variation dominated the contribution to the model fit.
-Responses to distance were particularly variable, with wolf spiders 
-increasing and rove beetles decreasing with distance from the lake.
-Overall, the magnitudes of the taxon-specific responses to time and distance
-were larger than the responses to midges.
+Taxa varied substantially in their trends through time: 
+ground spiders and beetles increased, wolf spiders and sheet weavers decreased,
+while rove beetles and harvestmen remained largely unchanged (Figure \ref{fig:coefs}b).  
+Variation among taxa was even greater in response to distance than for time (Figure \ref{fig:coefs}c),
+with ground and rove beetles most abundant near the lake, 
+while ground and wolf spiders were most abundant further away.
+In contrast to time and distance,
+the average response across taxa to midge deposition was consistently positive (although fairly weak).
+Indeed, the responses for all individual taxa were positive, 
+with only sheet weavers approaching zero (Figure \ref{fig:coefs}d).
+The positive responses to midges were associated with variation in deposition 
+both among years and along distance from the lake (Figure \ref{fig:obs-data}),
+underscoring the importance of accounting for time and distance when inferring responses to midge deposition.
 
 
 
 The taxon-specific responses provided the basis for inferring variation 
-in both community composition per se and overall community abundance.
-Changes in composition arose when taxa differed in their responses
-to predictors, while changes in overall abundance arose from consistent
+in both community composition per se and community-wide abundance.
+Specifically, changes in composition arose when taxa differed in their responses
+to predictors, while changes in community-wide abundance arose from consistent
 responses among taxa.
-For example, taxa varied in their responses to distance from the lake 
-(Figure \ref{fig:coefs}; Table \ref{tab:model-summary}: \emph{LOOIC}),
+For example, taxa differed in their responses to distance from the lake 
+(``among taxa SD'' in Figure \ref{fig:coefs}c),
 which in turn implied that community composition varied with distance.
-In the PCA, this resulted in variation in the taxon-response vectors
-along PC2 (Figure \ref{fig:pca}A), 
-which was most strongly associated with distance 
-(Figure \ref{fig:pca}C; Table \ref{tab:model-summary}: \emph{Variance partitioning}).
-Community composition also varied through time, 
-which primarily manifested in variation along PC3 (Figure \ref{fig:pca-23}).
-In contrast, the abundance of all taxa except for sheet weavers increased with midges,
-resulting in an positive overall response of community abundance along PC1 (Figure \ref{fig:pca}A,D).
+In the PCA, this resulted in substantial variation among the taxon-response vectors
+along PC1, which was most strongly associated with distance 
+(Figure \ref{fig:pca}a--d; Table \ref{tab:model-summary}).
+Taxa also differed in responses to time (``among taxa SD'' in Figure \ref{fig:coefs}b),
+with variation in community composition manifesting along PC3 (Figure \ref{fig:pca}c--f).
+In contrast, the average response to midges was positive (``among taxa mean'' in Figure \ref{fig:coefs}d),  
+resulting in an increase in community-wide abundance along PC2 (Figure \ref{fig:pca}a,b,e,f).
 Distance accounted for most of the observed community variation,
-followed by time, and midges (Table \ref{tab:model-summary}). 
-This implies that (1) changes in composition per se
-with distance and time caused most of the community variation, and 
-(2) variation in overall abundance due to midges was more modest,
-but still statistically meaningful.
-Together, linear responses to midges, distance, and time accounted for 
-68\% of the observed community variation.
+followed by midges, and finally time (Table \ref{tab:model-summary}). 
+Together, linear responses of the various taxa to midges, distance, and time accounted for 
+74\% of the observed community variation.

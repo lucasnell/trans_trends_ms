@@ -4,7 +4,7 @@
 % \usepackage{mathptmx} % Like Times New Roman
 \usepackage{newtxtext,newtxmath}
 \usepackage{fullpage}
-\usepackage[authoryear,sectionbib,sort]{natbib}
+\usepackage[authoryear,sectionbib]{natbib}
 
 % The following works for line spacing for ESA journals
 % (per http://esapubs.org/esapubs/latexTIPsESA.pdf):
@@ -24,11 +24,16 @@
 \medmuskip=8mu % by default it is equal to 4 mu
 \thickmuskip=10mu % by default it is equal to 5 mu
 
+\usepackage{hyperref}
+
 % Figures
 \usepackage{graphicx}
 \graphicspath{ {./figures/} }
 % Table
 \usepackage{booktabs}
+\usepackage{siunitx}
+\sisetup{parse-numbers = false}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -120,7 +125,7 @@ Running head: {Community responses from time series}
 \bigskip
 
 \textit{Keywords}: {allochthonous subsidies; autoregressive model; linear mixed model;
-M\'{y}vatn; time-series analysis; tundra arthropods
+M\'{y}vatn; state-space model; tundra arthropods
 }
 
 
@@ -184,13 +189,12 @@ M\'{y}vatn; time-series analysis; tundra arthropods
 
 \section*{Acknowledgments}
 
-Collection of long-term data was supported by National Science Foundation grants
+Data collection was supported by National Science Foundation grants
 DEB-0717148 to Claudio Gratton, DEB-1052160, DEB-1556208 to Anthony R. Ives,
-and Graduate Research Fellowships DGE-1256259 and DGE-XXXXXX.
-The M\'{y}vatn Research Station directed by \'{A}rni Einarsson
-provided logistical and scientific support.
-We thank Amanda McCormick, Matthew McCary, and XXXXXXXXXXXXXXXXXXXXXXXXXXX 
-for feedback on this manuscript.
+and Graduate Research Fellowships DGE-1256259 and DGE-1747503.
+We thank \'{A}rni Einarsson and M\'{y}vatn Research Station research support,
+and Amanda McCormick, Matthew McCary, Claudio Gratton, and Anthony R. Ives 
+for feedback on the manuscript. LAN and JSP made equal contributions to this work.
 
 
 % ---------------------------------------------------------------------------------------
@@ -222,36 +226,33 @@ for feedback on this manuscript.
 
 \begin{table}
 \caption{\label{tab:model-summary}
-Model inference.
-$\Delta$LOOIC was calculated from the posterior distribution of point-wise log-likelihoods
-and compares the fit of the full model to a reduced model excluding either
-deviations in taxon-specific responses from the mean response or
-the overall response (including mean and taxon-specific components).
-The scale of $\Delta$LOOIC is comparable to $\Delta$AIC.
-The variance partitioning (non-parenthetical values) was calculated using ANOVA,
-with the sum-of-squares for each component divided by the total sum-of-squares 
-to obtain the proportional contribution.
-Parenthetical values show relative loadings for the observed data projection onto the PC axes.
-The `Total' column gives either the sum of these loadings across the PC axes (top row) or 
-the sum of the loadings weighted by the corresponding variance contributions for a given predictor
-(bottom three rows).}
-\begin{tabular}{rrrrrrrr}
+Community variance partitioning.
+The first three rows and columns show the proportion of the variance in the three PC axes
+attributable to the model predictors (time, distance, and midge deposition) calculated using ANOVA. 
+Because the PCA was based on the fitted values from the model, essentially all of the variance 
+in the three PC axes was attributable to the three predictors.
+The `Axis loading' row gives the portion of the variance in the observed data explained
+by a given PC axis, 
+while the `Predictor loading' column gives the variance in the observed data explained 
+by a given predictor.
+The predictor loadings were calculated as
+the sum of the axes loadings weighted by the corresponding variance contributions for a given predictor.
+The lower right-hand corner gives the sum of the axes loadings (equivalent to the sum of the predictor loadings),
+corresponding to the proportion of the variance in community composition and abundance attributable to time, distance, and midge deposition.}
+\begin{tabular}{rSSS|S}
 \toprule
- & \multicolumn{2}{c}{$\Delta$LOOIC} & & \multicolumn{4}{c}{Variance partitioning} \\
- \cmidrule{2-3} \cmidrule{5-8}
- & \multicolumn{1}{c}{Taxon-variation} & \multicolumn{1}{c}{Overall} & &
-    \multicolumn{1}{c}{PC1} & \multicolumn{1}{c}{PC2} & \multicolumn{1}{c}{PC3} &
-    \multicolumn{1}{c}{Total} \\
-& \multicolumn{1}{c}{(random)} & \multicolumn{1}{c}{(fixed + random)} & &
-    \multicolumn{1}{c}{(0.34)} & \multicolumn{1}{c}{(0.17)} &
-    \multicolumn{1}{c}{(0.17)} & \multicolumn{1}{c}{(0.68)} \\
+& \multicolumn{1}{c}{PC1} & \multicolumn{1}{c}{PC2} &
+    \multicolumn{1}{c}{PC3} & \multicolumn{1}{c}{Predictor loading} \\
 \midrule
-time & 36 & 34 &  & 0.00 & 0.27 & 0.85 & (0.19) \\
-distance & 65 & 64 &  & 0.99 & 0.04 & 0.01 & (0.34) \\
-midges & 5 & 16 &  & 0.01 & 0.69 & 0.14 & (0.14)\\
+time              & 0.07 & 0.06 & 0.87 & 0.13 \\
+distance          & 0.91 & 0.00 & 0.08 & 0.38 \\
+midges            & 0.02 & 0.94 & 0.04 & 0.24 \\
+\midrule
+Axis loading      & 0.40 & 0.24 & 0.10 & 0.74 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
 
 
 \clearpage
@@ -261,14 +262,14 @@ midges & 5 & 16 &  & 0.01 & 0.69 & 0.14 & (0.14)\\
 \includegraphics{fig1.pdf}
 \caption{\label{fig:obs-data}
 Community time series data for 6 predatory arthropod taxa at Lake M\'{y}vatn.
-(A) Transformed abundance of arthropods through time.
+(a) Transformed abundance of arthropods through time.
 Narrow gray lines are time series grouped by site and distance.
-(B) Transformed abundance of arthropods versus distance from the lake.
-Thick red lines are transformed midge abundances averaged by (A) year or (B) distance.
+(b) Transformed abundance of arthropods versus distance from the lake.
+Thick red lines are transformed midge abundances averaged by (a) year or (b) distance.
 Thick blue lines are transformed abundances averaged by taxon and
-(A) year or (B) distance.
+(a) year or (b) distance.
 Relative abundances were measured using activity-densities that were log-transformed,
-then z-scored within each taxon.
+then z-scored across the entire data set.
 }
 \end{figure}
 
@@ -278,20 +279,24 @@ then z-scored within each taxon.
 \clearpage
 
 \begin{figure}
-\centering
+\begin{minipage}[c]{3.5in}
 \includegraphics{fig2.pdf}
+\end{minipage}\hfill
+\begin{minipage}[b]{3in}
 \caption{\label{fig:coefs}
 Parameter estimates from the autoregressive mixed model, including
-(A) taxon-specific responses to each predictor,
-(B) autoregressive coefficients for each taxon, and
-(C,D) posterior distributions for the fixed effects and random effect standard
-deviations, respectively.
-(A) The shaded regions correspond with the 68\% uncertainty interval
-(analogous to the coverage of standard errors) for the mean response across taxa
-(i.e. fixed effects shown in panel C).
-(A,B) Points are posterior medians, and error bars are 68\% uncertainty intervals.
-In all panels, gray vertical lines correspond to 0.
+(a) autoregressive coefficients for each taxon, and
+(b--d) responses to each predictor.
+In all panels, points are posterior medians,
+error bars are posterior standard errors, and
+gray horizontal lines correspond to 0.
+(b--d) The shaded curves on the left show the posterior densities for the 
+mean response across taxa (i.e., fixed effects), and 
+shaded curves on the right show posterior distributions for 
+the random effect standard deviations;
+darker shaded regions indicate posterior standard errors.
 }
+\end{minipage}
 \end{figure}
 
 
@@ -300,19 +305,25 @@ In all panels, gray vertical lines correspond to 0.
 
 \begin{figure}
 \centering
+\begin{minipage}[c]{3.5in}
 \includegraphics{fig3.pdf}
+\end{minipage}\hfill
+\begin{minipage}[c]{3in}
 \caption{\label{fig:pca}
 Principal components analysis (PCA) of community variation, showing
-(A) taxon-response vectors and (B--D) model predictors projected onto the PC axes.
+(a,c,e) taxon-response vectors and (b,d,f) model predictors and observed data projected onto the PC axes.
+Panel rows separate the three pairwise combinations of PC axes.
+(b,d,f) Points indicate observed data.
 The PCA is based on the taxon-specific responses to time, distance, and midges,
 as inferred from the model.
 Therefore, the PC axes are aligned to maximize variation associated with responses
 to the predictor variables, similar to ordination methods such as ``redundancy analysis.''
 The observed data were then projected onto these axes so that variation accounted for
 by the model could be visualized in the context of the data.
-The taxon vector overlays in panel A are scaled relative to vectors in
-B--D for clarity of visualization.
+For clarity of visualization, the taxon vector overlays in panels a,c,e are scaled relative to vectors in b,d,f, and both are scaled
+relative to observed data projections.
 }
+\end{minipage}
 \end{figure}
 
 
@@ -320,46 +331,29 @@ B--D for clarity of visualization.
 
 % \section*{Supplemental Figures}
 
-\renewcommand{\thefigure}{S\arabic{figure}}
-\renewcommand{\theequation}{S\arabic{equation}}
-\renewcommand{\thetable}{S\arabic{table}}
-\setcounter{equation}{0}
-\setcounter{figure}{0}
-\setcounter{table}{0}
+%\renewcommand{\thefigure}{S\arabic{figure}}
+%\renewcommand{\theequation}{S\arabic{equation}}
+%\renewcommand{\thetable}{S\arabic{table}}
+%\setcounter{equation}{0}
+%\setcounter{figure}{0}
+%\setcounter{table}{0}
 
-\begin{figure}
-\centering
-\includegraphics{figS1.pdf}
-\caption{\label{fig:pca-23}
-Principal components analysis (PCA) of community variation, projected onto
-PC2 and PC3, showing (A) taxon-response vectors and
-(B--D) model predictors projected onto the PC axes.
-The PCA is based on the taxon-specific responses to time, distance, and midges,
-as inferred from the model.
-Therefore, the PC axes are aligned to maximize variation associated with responses
-to the predictor variables, similar to ordination methods such as ``redundancy analysis.''
-The observed data were then projected onto these axes so that variation accounted for
-by the model could be visualized in the context of the data.
-The taxon vector overlays in panel A are scaled relative to vectors in
-B--D for clarity of visualization.
-}
-\end{figure}
-
-
-% % Figure S2
-% \caption{\label{fig:pca-13}
-% Principal components analysis (PCA) of community variation, projected onto
-% PC1 and PC3, showing (A) taxon-response vectors and
-% (B--D) model predictors projected onto the PC axes.
-% The PCA is based on the taxon-specific responses to time, distance, and midges,
-% as inferred from the model.
-% Therefore, the PC axes are aligned to maximize variation associated with responses
-% to the predictor variables, similar to ordination methods such as ``redundancy analysis.''
-% The observed data were then projected onto these axes so that variation accounted for
-% by the model could be visualized in the context of the data.
-% The taxon vector overlays in panel A are scaled relative to vectors in
-% B--D for clarity of visualization.
-% }
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.75\textwidth]{figS1.pdf}
+%\caption{\label{fig:pca-13}
+%Principal components analysis (PCA) of community variation, showing 
+%model predictors and observed data projected onto the PC axes.
+%Panel rows separate the three pairwise combinations of PC axes, and
+%columns separate the predictors.
+%Points indicate observed data, and color indicates
+%each observation's predictor value.
+%The PCA is based on the taxon-specific responses to time, distance, and midges,
+%as inferred from the model.
+%For clarity of visualization, the vector overlays are scaled relative to
+%the observed data projections.
+%}
+%\end{figure}
 
 
 \end{document}
